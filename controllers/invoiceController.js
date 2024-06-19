@@ -55,14 +55,18 @@ exports.fetchInvoice = async (req, res) => {
     const user = req.user;
 
     if (user.role === "Admin") {
-      const invoice = await Invoice.find({}).populate("customer").exec();
+      const invoice = await Invoice.find({})
+        .populate("customer")
+        .populate("product")
+        .exec();
       res.status(200).json(invoice);
     } else {
       console.log(user);
       const invoice = await Invoice.find({ user: user.id })
         .populate("customer")
+        .populate("product")
         .exec();
-      console.log(invoice);
+
       res.status(200).json(invoice);
     }
   } catch (err) {

@@ -31,6 +31,10 @@ exports.createUser = async (req, res) => {
             salt,
           });
           const doc = await user.save();
+          const userFetch = await User.findById(doc._id)
+            .select("-password -salt")
+            .exec();
+          res.status(200).json(userFetch);
         }
       );
     } else {
