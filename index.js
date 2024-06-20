@@ -41,10 +41,10 @@ server.use(
 server.use(passport.authenticate("session"));
 
 //routes
-server.use("/api/user", userRouter.router);
+server.use("/api/user", isAuth(), userRouter.router);
 server.use("/api/auth", authRouter.router);
-server.use("/api/category", categoryRouter.router);
-server.use("/api/product", productRouter.router);
+server.use("/api/category", isAuth(), categoryRouter.router);
+server.use("/api/product", isAuth(), productRouter.router);
 server.use("/api/customer", isAuth(), customerRouter.router);
 server.use("/api/invoice", isAuth(), invoiceRouter.router);
 
